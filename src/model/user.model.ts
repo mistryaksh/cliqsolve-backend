@@ -1,4 +1,4 @@
-import { UserProps, UserRoleType } from "interface";
+import { UserProps } from "interface";
 import mongoose from "mongoose";
 
 type UserTypes = UserProps & mongoose.Document;

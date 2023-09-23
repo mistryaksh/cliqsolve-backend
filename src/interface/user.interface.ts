@@ -3,14 +3,8 @@ export interface UserProps {
      email: string;
      mobile: string;
      accountPin: string;
-     role: UserRoleType;
+     role: string;
      verification: boolean;
-}
-
-export enum UserRoleType {
-     "admin",
-     "subAdmin",
-     "user",
 }
 
 export interface ILoginResponse {
