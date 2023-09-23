@@ -1,0 +1,5 @@
+{
+     "JWT_SECRET": "JSONWEBTOKENSECRET",
+     "DB_PATH": "mongodb+srv://admin:P9qnUSnIQathB1pX@cluster0.idu91gc.mongodb.net/?retryWrites=true&w=majority",
+     "JWT_EXPIRE": "3d"
+}
