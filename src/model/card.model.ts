@@ -4,7 +4,6 @@ import mongoose from "mongoose";
 const CardSchema = new mongoose.Schema(
      {
           details: {
-               name: { type: mongoose.Schema.Types.String, required: true },
                number: { type: mongoose.Schema.Types.String, required: true },
                cvv: { type: mongoose.Schema.Types.String, required: true },
                exp: { type: mongoose.Schema.Types.String, required: true },
@@ -13,11 +12,11 @@ const CardSchema = new mongoose.Schema(
                cardType: { type: mongoose.Schema.Types.String, required: true, default: "master" },
           },
           appearance: {
-               background1: { type: mongoose.Schema.Types.String, required: true },
-               background2: { type: mongoose.Schema.Types.String, required: true },
-               textColor: { type: mongoose.Schema.Types.String, required: true },
+               background1: { type: mongoose.Schema.Types.String },
+               background2: { type: mongoose.Schema.Types.String },
+               textColor: { type: mongoose.Schema.Types.String },
           },
-          status: { type: mongoose.Schema.Types.String, required: true, enum: ["active" || "disabled"] },
+          status: { type: mongoose.Schema.Types.String, enum: ["active" || "disabled"] },
           user: { type: mongoose.Schema.Types.ObjectId, ref: "Users", required: true },
      },
      {

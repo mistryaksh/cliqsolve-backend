@@ -6,6 +6,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { AuthToUser } from "middleware";
 import nodemailer from "nodemailer";
+import config from "config";
 
 export class UserController implements IController {
      public routes: IControllerRoutes[] = [];
@@ -51,7 +52,7 @@ export class UserController implements IController {
                const user = await Users.findOne({ mobile: mobile });
 
                if (user) {
-                    return UnAuthorized(res, "user is already registered");
+                    return UnAuthorized(res, "Oops you have the registered account with this number please login");
                }
 
                const hashPin = bcrypt.hashSync(accountPin, hashSalt);
@@ -94,8 +95,8 @@ export class UserController implements IController {
                          id: userExist._id,
                          mobile: mobile,
                     },
-                    process.env.JWT_SECRET,
-                    { expiresIn: process.env.JWT_EXPIRE }
+                    process.env.JWT_SECRET || config.get("JWT_SECRET"),
+                    { expiresIn: process.env.JWT_EXPIRE || config.get("JWT_EXPIRE") }
                );
 
                res.cookie("token", token, { httpOnly: true });

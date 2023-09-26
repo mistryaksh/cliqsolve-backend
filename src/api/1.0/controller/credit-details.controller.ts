@@ -1,16 +1,7 @@
 import { Request, Response } from "express";
 import { CheckScoreProps, CreditCardProps, IController, IControllerRoutes } from "interface";
 import { Card, CreditRecord, Users } from "model";
-import {
-     DecodedToken,
-     GetTokenFromCookie,
-     GetUserFromToken,
-     Ok,
-     UnAuthorized,
-     VerifyToken,
-     decrypt,
-     encryptData,
-} from "utils";
+import { DecodedToken, GetTokenFromCookie, Ok, UnAuthorized, decrypt, encryptData } from "utils";
 import { AuthToUser, CheckEmailVerified } from "middleware";
 import moment from "moment";
 
@@ -44,13 +35,13 @@ export class CreditDetailsController implements IController {
                method: "GET",
                path: "/card/:cardId",
                middleware: [AuthToUser, CheckEmailVerified],
-          }),
-               this.routes.push({
-                    handler: this.GetMyCreditCards,
-                    method: "GET",
-                    path: "/card",
-                    middleware: [AuthToUser, CheckEmailVerified],
-               });
+          });
+          this.routes.push({
+               handler: this.GetMyCreditCards,
+               method: "GET",
+               path: "/card",
+               middleware: [AuthToUser, CheckEmailVerified],
+          });
           this.routes.push({
                handler: this.DecryptCreditCardNumber,
                method: "POST",
@@ -124,7 +115,7 @@ export class CreditDetailsController implements IController {
                const cookie = GetTokenFromCookie(req);
                const tokenExtracted = DecodedToken(req, cookie);
 
-               if (!appearance || !details) {
+               if (!details) {
                     return UnAuthorized(res, "missing fields");
                }
 
@@ -133,7 +124,6 @@ export class CreditDetailsController implements IController {
                const saved = await new Card({
                     details: {
                          number: data,
-                         name: details.name,
                          ownerName: details.ownerName,
                          cvv: details.cvv,
                          exp: details.exp,
@@ -141,10 +131,13 @@ export class CreditDetailsController implements IController {
                     },
                     appearance,
                     user: tokenExtracted.id,
-                    status,
+                    status: "active",
                }).save();
 
-               return Ok(res, saved);
+               return Ok(res, {
+                    message: "card_saved",
+                    id: saved._id,
+               });
           } catch (err) {
                console.log("ERROR", err);
                return UnAuthorized(res, err);
