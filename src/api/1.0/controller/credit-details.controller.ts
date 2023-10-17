@@ -186,18 +186,18 @@ export class CreditDetailsController implements IController {
      public async DeleteCreditCard(req: Request, res: Response) {
           try {
                const cardid = req.params.id;
-               const { encryptedCardNumber } = req.body;
+               // const { encryptedCardNumber } = req.body;
                const card = await Card.findOne({ _id: cardid });
 
-               if (!encryptedCardNumber) {
-                    return UnAuthorized(res, "missing fields");
-               }
+               // if (!encryptedCardNumber) {
+               //      return UnAuthorized(res, "missing fields");
+               // }
 
-               const data = decrypt(card.details.number);
+               // const data = decrypt(card.details.number);
 
-               if (data !== encryptedCardNumber) {
-                    return UnAuthorized(res, "card number not matched");
-               }
+               // if (data !== encryptedCardNumber) {
+               //      return UnAuthorized(res, "card number not matched");
+               // }
 
                const deleted = await Card.findByIdAndDelete({ _id: card._id });
                if (!deleted) {

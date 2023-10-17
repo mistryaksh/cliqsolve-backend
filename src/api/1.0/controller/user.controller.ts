@@ -76,6 +76,7 @@ export class UserController implements IController {
           try {
                const { mobile, accountPin }: SignInProps = req.body;
 
+               console.log(mobile, accountPin);
                const userExist = await Users.findOne({ mobile });
 
                if (!userExist) {
@@ -95,7 +96,7 @@ export class UserController implements IController {
                          id: userExist._id,
                          mobile: mobile,
                     },
-                    process.env.JWT_SECRET || config.get("JWT_SECRET"),
+                    process.env.JWT_SECRET || config.get("JWT_SECRET") || "JSONWEBTOKENSECRET" || "3d",
                     { expiresIn: process.env.JWT_EXPIRE || config.get("JWT_EXPIRE") }
                );
 

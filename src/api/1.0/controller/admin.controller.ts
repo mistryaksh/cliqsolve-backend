@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { Users } from "model";
 import { AdminRoute } from "middleware/admin.middleware";
+import config from "config";
 
 export class AdminController implements IController {
      public routes: IControllerRoutes[] = [];
@@ -67,7 +68,7 @@ export class AdminController implements IController {
                          id: user._id,
                          mobile: mobile,
                     },
-                    process.env.JWT_SECRET,
+                    process.env.JWT_SECRET || config.get("JSONWEBTOKENSECRET") || config.get("3d"),
                     { expiresIn: "3d" }
                );
 
