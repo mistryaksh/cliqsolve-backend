@@ -55,6 +55,14 @@ export class UserController implements IController {
                     return UnAuthorized(res, "Oops you have the registered account with this number please login");
                }
 
+               const sendMail = nodemailer.createTransport({
+                    service: "gmail",
+                    auth: {
+                         user: "mistryaksh1998@gmail.com",
+                         pass: "rwumpcnbycrmmwno",
+                    },
+               });
+
                const hashPin = bcrypt.hashSync(accountPin, hashSalt);
 
                const saveUser = await new Users({
@@ -64,6 +72,19 @@ export class UserController implements IController {
                     name,
                     role: "user",
                }).save();
+
+               sendMail.sendMail({
+                    subject: "Your account is successfully registered with Cliqsolve Fintech",
+
+                    from: "mistryaksh1998@gmail.com",
+                    to: email,
+                    text: `Hey
+                    your email address ${email} is successfully registered with us. kindly be safe  & healthy
+                         you can login to your account by going back to Cliqsolve App.
+
+                         -Thank you
+                    `,
+               });
 
                return Ok(res, `${saveUser.name} your account is registered with us, please login!`);
           } catch (err) {
