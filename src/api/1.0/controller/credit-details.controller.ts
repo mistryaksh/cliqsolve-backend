@@ -86,7 +86,6 @@ export class CreditDetailsController implements IController {
                     score: "820",
                });
           } catch (err) {
-               console.log(err);
                return UnAuthorized(res, err);
           }
      }
@@ -104,7 +103,6 @@ export class CreditDetailsController implements IController {
                     .select("panNo nameAsPan dob gender user createdAt");
                return Ok(res, history);
           } catch (err) {
-               console.log(err);
                return UnAuthorized(res, err);
           }
      }
@@ -139,7 +137,6 @@ export class CreditDetailsController implements IController {
                     id: saved._id,
                });
           } catch (err) {
-               console.log("ERROR", err);
                return UnAuthorized(res, err);
           }
      }
@@ -177,7 +174,6 @@ export class CreditDetailsController implements IController {
                const data = decrypt(encryptedCard);
                return Ok(res, data);
           } catch (err) {
-               console.log(err);
                return UnAuthorized(res, err);
           }
      }

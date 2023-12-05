@@ -24,5 +24,9 @@ export interface SignUpProps {
 
 export interface SignInProps {
      mobile: string;
+}
+
+export interface SignInAdminProps {
+     mobile: string;
      accountPin: string;
 }

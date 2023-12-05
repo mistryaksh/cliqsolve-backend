@@ -40,8 +40,6 @@ export class BillGenerateController implements IController {
                     user,
                }).save();
 
-               console.log(bill);
-
                return Ok(res, "successful");
           } catch (err) {
                return UnAuthorized(res, err);

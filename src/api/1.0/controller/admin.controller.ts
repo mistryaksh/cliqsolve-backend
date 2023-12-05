@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { IController, IControllerRoutes, SignInProps, SignUpProps } from "interface";
+import { IController, IControllerRoutes, SignInAdminProps, SignUpProps } from "interface";
 import { BadRequest, DecodedToken, GetTokenFromCookie, Ok, UnAuthorized } from "utils";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -43,7 +43,7 @@ export class AdminController implements IController {
 
      public async LoginAdmin(req: Request, res: Response) {
           try {
-               const { mobile, accountPin }: SignInProps = req.body;
+               const { mobile, accountPin }: SignInAdminProps = req.body;
 
                if (!mobile || !accountPin) {
                     return UnAuthorized(res, "invalid credentials");
@@ -76,7 +76,6 @@ export class AdminController implements IController {
 
                return Ok(res, token);
           } catch (err) {
-               console.log(err);
                return UnAuthorized(res, err);
           }
      }
@@ -141,7 +140,6 @@ export class AdminController implements IController {
                const user = await Users.findById({ _id: extracted.id }).select(
                     "email mobile name createdAt updatedAt accountPin"
                );
-               console.log(" HITTED HARD", user);
                return Ok(res, user);
           } catch (err) {
                return UnAuthorized(res, err);

@@ -7,9 +7,9 @@ import morgan from "morgan";
 import { HeaderMiddleware, errorHandler, notFoundMiddleware } from "./middleware";
 import { registerRoutesV1 } from "api";
 import cookieParser from "cookie-parser";
-// import dotenv from "dotenv";
+import dotenv from "dotenv";
 
-// dotenv.config();
+dotenv.config();
 
 class App {
      express: Express;
