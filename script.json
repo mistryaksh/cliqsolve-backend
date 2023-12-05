@@ -1,0 +1,9 @@
+{
+     "apps": [
+          {
+               "name": "cliqsolve-backend",
+               "script": "npm",
+               "args": "start"
+          }
+     ]
+}
