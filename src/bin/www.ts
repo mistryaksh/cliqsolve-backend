@@ -2,7 +2,7 @@ import http from "http";
 import app from "../index";
 import { normalizePort } from "../utils";
 
-const port = normalizePort(process.env.PORT || 5000);
+const port = normalizePort(process.env.PORT || 8080);
 app.set("port", port);
 
 const server = http.createServer(app);
@@ -32,6 +32,6 @@ const onListening = () => {
      console.info(`server enabled on ${bind}`);
 };
 
-server.listen(port);
+server.listen(port, "0.0.0.0" as any);
 server.on("error", onError);
 server.on("listening", onListening);
